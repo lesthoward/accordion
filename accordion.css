@@ -1,0 +1,94 @@
+html {
+    /* Colocar 62.5% para 10px y luego en el body 1.6px para 16px. Con esta configuración no tengo la necesidad de hacer calculos con los rem */
+    font-size: 62.5%;
+}
+/* Formateando completamente todos los estilos, incluso teniendo normalize */
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: none;
+}
+
+body {
+    /* Cambié de opinión, ahora quiero un fondo más gris */
+    /* background: #93C0A4; */
+    background: #cecece;
+    font-family: 'Inconsolata', arial;
+    font-size: 1.6rem;
+    /* Para hacer que los expandibles no se muevan su contenedor debe estar fijo en el documento, podría hacerse con un position o con el orden por defecto, como sin utilziar flex */
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    height: 100vh;
+    min-height: 50rem;
+}
+
+.container {
+    max-width: 90%;
+    /* Un ancho, que no abarquen el 100% del documento, aunuqe igual podría ir en el contenedor de las cajas expandibles */
+    width: 50rem;
+}
+
+.container__title {
+    margin-bottom: 2rem;
+}
+
+.accordion{
+    width: 100%;
+    margin-bottom: 2.5rem;
+    /* Un ligero borde para hacer contraste con el fondo, sin colores bruscos */
+    box-shadow: .0rem .0rem .1rem 0rem rgba(0, 0, 0, .45);
+    border-radius: .5rem;
+    overflow: hidden;
+}
+.accordion__title{
+    background: #4B9CD3;
+    position: relative;
+    padding: 2rem;
+    font-weight: bold;
+    letter-spacing: .2rem;
+    overflow: hidden;
+    cursor: pointer;
+    /* Cuando no esté expandido quiero que esté bordeado completamente y agregues una animación */
+    border: 1px solid #000;
+    border-radius: .5rem;
+    transition: all .3s ease;
+}
+
+.accordion__title--active {
+    border-radius: .5rem .5rem 0 0;
+    color: #fff;
+}
+
+/* Cuando tenga la clase active quiero editar su mismo before */
+.accordion__title::after {
+    content: '+';
+    position: absolute ;
+    font-size: 2.2rem;
+    font-weight: bold;
+    right: 2.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.accordion__title--active::after {
+    content: '-';
+}
+
+.accordion__description{
+    background: #d1cfcf;
+    /* padding: 2rem; */
+    line-height: 1.5;
+    max-height: 0;
+    overflow: hidden;
+    /* La propidad de height no funcionaba con animación en auto, el max-height difine una logintud respetando el tamaño del contenido */
+    /* transition: max-height .3s ease, padding .3s ease; */
+    transition: all .4s ease;
+}
+
+.accordion__title--active + .accordion__description {
+    padding: 2rem;
+    max-height: 20rem;
+}
